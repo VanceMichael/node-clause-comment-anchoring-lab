@@ -1,0 +1,282 @@
+{
+  "phases": [
+    "first",
+    "change"
+  ],
+  "routes": [
+    {
+      "path": "/consultation",
+      "method": "GET",
+      "status": 200,
+      "phase": "change",
+      "data": {
+        "draft": "D2",
+        "clauses": [
+          {
+            "id": "b5",
+            "section": "教务",
+            "title": "报送",
+            "text": "定期报送教材备案目录。",
+            "role": "教材编辑"
+          },
+          {
+            "id": "b6",
+            "section": "经费",
+            "title": "报送",
+            "text": "定期报送财务支出目录。",
+            "role": "财务"
+          },
+          {
+            "id": "b8",
+            "section": "材料",
+            "title": "原件",
+            "text": "保留原件。",
+            "role": "编校"
+          },
+          {
+            "id": "b9",
+            "section": "附则",
+            "title": "改版",
+            "text": "有改版说明。",
+            "role": "教务"
+          },
+          {
+            "id": "b10",
+            "section": "教务",
+            "title": "送审",
+            "text": "按期交交叉复核材料。",
+            "role": "编校"
+          }
+        ],
+        "printUrl": "/print",
+        "window": [
+          "2026-11-24",
+          "2026-12-01"
+        ]
+      }
+    },
+    {
+      "path": "/consultation",
+      "method": "GET",
+      "status": 200,
+      "data": {
+        "draft": "D1",
+        "clauses": [
+          {
+            "id": "a5",
+            "section": "总则",
+            "title": "报送",
+            "text": "定期报送教材备案目录。",
+            "role": "教材编辑"
+          },
+          {
+            "id": "a8",
+            "section": "附则",
+            "title": "材料",
+            "text": "保留原件及改版说明。",
+            "role": "编校"
+          },
+          {
+            "id": "a9",
+            "section": "附则",
+            "title": "送审",
+            "text": "按期交交叉复核材料。",
+            "role": "编校"
+          }
+        ],
+        "printUrl": "/print",
+        "window": [
+          "2026-11-22",
+          "2026-11-25"
+        ]
+      }
+    },
+    {
+      "path": "/print",
+      "method": "GET",
+      "status": 200,
+      "phase": "first",
+      "file": "draft1.html",
+      "mime": "text/html"
+    },
+    {
+      "path": "/print",
+      "method": "GET",
+      "status": 200,
+      "phase": "change",
+      "file": "draft1.html",
+      "mime": "text/html",
+      "once": true
+    },
+    {
+      "path": "/print",
+      "method": "GET",
+      "status": 200,
+      "phase": "change",
+      "file": "draft2.html",
+      "mime": "text/html"
+    },
+    {
+      "path": "/compare",
+      "method": "GET",
+      "status": 200,
+      "data": {
+        "appliesTo": "D2",
+        "base": "D1",
+        "relations": [
+          {
+            "old": "a5",
+            "incoming": [
+              "b5"
+            ],
+            "ranges": [
+              [
+                0,
+                11
+              ]
+            ]
+          },
+          {
+            "old": "a8",
+            "incoming": [
+              "b8",
+              "b9"
+            ],
+            "ranges": [
+              [
+                0,
+                4
+              ],
+              [
+                4,
+                9
+              ]
+            ]
+          },
+          {
+            "old": "a9",
+            "incoming": [
+              "b10"
+            ],
+            "ranges": [
+              [
+                0,
+                11
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "path": "/surveys",
+      "method": "GET",
+      "status": 200,
+      "params": {
+        "draft": "D1"
+      },
+      "data": [
+        {
+          "draft": "D1",
+          "clause": "a5",
+          "role": "教材编辑",
+          "receipt": "S-7",
+          "state": "正式收件"
+        }
+      ]
+    },
+    {
+      "path": "/surveys",
+      "method": "GET",
+      "status": 200,
+      "params": {
+        "draft": "D2"
+      },
+      "data": [
+        {
+          "draft": "D2",
+          "clause": "b5",
+          "role": "教材编辑"
+        },
+        {
+          "draft": "D2",
+          "clause": "b8",
+          "role": "编校"
+        },
+        {
+          "draft": "D2",
+          "clause": "b9",
+          "role": "教务"
+        }
+      ]
+    },
+    {
+      "path": "/surveys/file",
+      "method": "POST",
+      "status": 202,
+      "expectedBody": {
+        "draft": "D2",
+        "clause": "b5"
+      },
+      "receipt": {
+        "number": "S-8",
+        "draft": "D2",
+        "clause": "b5",
+        "state": "正式收件"
+      },
+      "drop": true
+    }
+  ],
+  "forms": [
+    {
+      "title": "公开征求意见席位",
+      "query": [
+        [
+          "draft",
+          "征询稿本",
+          [
+            [
+              "D1",
+              "旧版 D1"
+            ],
+            [
+              "D2",
+              "修订 D2"
+            ]
+          ]
+        ]
+      ],
+      "fields": [
+        [
+          "requestId",
+          "单位号"
+        ],
+        [
+          "draft",
+          "稿本"
+        ],
+        [
+          "clause",
+          "条文"
+        ],
+        [
+          "role",
+          "签署人"
+        ],
+        [
+          "opinion",
+          "意见"
+        ]
+      ],
+      "source": "/surveys",
+      "columns": [
+        "draft",
+        "clause",
+        "role",
+        "receipt",
+        "state"
+      ],
+      "action": "/surveys/file"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "office": "民生编审部",
+  "pending": [
+    {
+      "id": "CM2",
+      "fromDraft": "D1",
+      "covers": [
+        "a5"
+      ],
+      "select": [
+        0,
+        4
+      ],
+      "role": "教材编辑"
+    },
+    {
+      "id": "CM3",
+      "fromDraft": "D1",
+      "covers": [
+        "a8",
+        "a9"
+      ],
+      "select": [
+        0,
+        4
+      ],
+      "role": "编校"
+    }
+  ]
+}
