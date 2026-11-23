@@ -1,7 +1,8 @@
 {
   "phases": [
     "first",
-    "change"
+    "change",
+    "signed"
   ],
   "routes": [
     {
@@ -44,7 +45,7 @@
             "id": "b10",
             "section": "教务",
             "title": "送审",
-            "text": "按期交交叉复核材料。",
+            "text": "按期提交交叉复核材料。",
             "role": "编校"
           }
         ],
@@ -52,42 +53,6 @@
         "window": [
           "2026-11-24",
           "2026-12-01"
-        ]
-      }
-    },
-    {
-      "path": "/consultation",
-      "method": "GET",
-      "status": 200,
-      "data": {
-        "draft": "D1",
-        "clauses": [
-          {
-            "id": "a5",
-            "section": "总则",
-            "title": "报送",
-            "text": "定期报送教材备案目录。",
-            "role": "教材编辑"
-          },
-          {
-            "id": "a8",
-            "section": "附则",
-            "title": "材料",
-            "text": "保留原件及改版说明。",
-            "role": "编校"
-          },
-          {
-            "id": "a9",
-            "section": "附则",
-            "title": "送审",
-            "text": "按期交交叉复核材料。",
-            "role": "编校"
-          }
-        ],
-        "printUrl": "/print",
-        "window": [
-          "2026-11-22",
-          "2026-11-25"
         ]
       }
     },
@@ -115,6 +80,188 @@
       "phase": "change",
       "file": "draft2.html",
       "mime": "text/html"
+    },
+    {
+      "path": "/consultation",
+      "method": "GET",
+      "status": 200,
+      "phase": "signed",
+      "data": {
+        "draft": "D2",
+        "clauses": [
+          {
+            "id": "b5",
+            "section": "教务",
+            "title": "报送",
+            "text": "定期报送教材备案目录。",
+            "role": "教材编辑"
+          },
+          {
+            "id": "b6",
+            "section": "经费",
+            "title": "报送",
+            "text": "定期报送财务支出目录。",
+            "role": "财务"
+          },
+          {
+            "id": "b8",
+            "section": "材料",
+            "title": "原件",
+            "text": "保留原件。",
+            "role": "编校"
+          },
+          {
+            "id": "b9",
+            "section": "附则",
+            "title": "改版",
+            "text": "有改版说明。",
+            "role": "教务"
+          },
+          {
+            "id": "b10",
+            "section": "教务",
+            "title": "送审",
+            "text": "按期提交交叉复核材料。",
+            "role": "编校"
+          }
+        ],
+        "printUrl": "/print",
+        "window": [
+          "2026-11-24",
+          "2026-12-01"
+        ]
+      }
+    },
+    {
+      "path": "/print",
+      "method": "GET",
+      "status": 200,
+      "phase": "signed",
+      "file": "draft2.html",
+      "mime": "text/html"
+    },
+    {
+      "path": "/office/signatures",
+      "method": "GET",
+      "status": 200,
+      "phase": "signed",
+      "data": [
+        {
+          "opinion": "CM2",
+          "draft": "D2",
+          "clause": "b5",
+          "role": "教材编辑",
+          "seal": "ED-40"
+        },
+        {
+          "opinion": "CM3",
+          "draft": "D2",
+          "clause": "b8",
+          "role": "编校",
+          "seal": "CE-41"
+        },
+        {
+          "opinion": "CM3",
+          "draft": "D2",
+          "clause": "b10",
+          "role": "编校",
+          "seal": "CE-42"
+        },
+        {
+          "opinion": "CM3",
+          "draft": "D2",
+          "clause": "b9",
+          "role": "教务",
+          "seal": "TU-43"
+        }
+      ]
+    },
+    {
+      "path": "/surveys/file",
+      "method": "POST",
+      "status": 202,
+      "phase": "signed",
+      "expectedBody": {
+        "draft": "D2",
+        "clause": "b8",
+        "role": "编校"
+      },
+      "receipt": {
+        "number": "S-9",
+        "draft": "D2",
+        "clause": "b8",
+        "state": "正式收件"
+      }
+    },
+    {
+      "path": "/surveys/file",
+      "method": "POST",
+      "status": 202,
+      "phase": "signed",
+      "expectedBody": {
+        "draft": "D2",
+        "clause": "b10",
+        "role": "编校"
+      },
+      "receipt": {
+        "number": "S-10",
+        "draft": "D2",
+        "clause": "b10",
+        "state": "正式收件"
+      }
+    },
+    {
+      "path": "/surveys/file",
+      "method": "POST",
+      "status": 202,
+      "phase": "signed",
+      "expectedBody": {
+        "draft": "D2",
+        "clause": "b9",
+        "role": "教务"
+      },
+      "receipt": {
+        "number": "S-11",
+        "draft": "D2",
+        "clause": "b9",
+        "state": "正式收件"
+      }
+    },
+    {
+      "path": "/consultation",
+      "method": "GET",
+      "status": 200,
+      "data": {
+        "draft": "D1",
+        "clauses": [
+          {
+            "id": "a5",
+            "section": "总则",
+            "title": "报送",
+            "text": "定期报送教材备案目录。",
+            "role": "教材编辑"
+          },
+          {
+            "id": "a8",
+            "section": "附则",
+            "title": "材料",
+            "text": "保留原件及改版说明。",
+            "role": "编校"
+          },
+          {
+            "id": "a9",
+            "section": "附则",
+            "title": "送审",
+            "text": "按期提交交叉复核材料。",
+            "role": "编校"
+          }
+        ],
+        "printUrl": "/print",
+        "window": [
+          "2026-11-22",
+          "2026-11-25"
+        ]
+      }
     },
     {
       "path": "/compare",
@@ -207,6 +354,11 @@
           "draft": "D2",
           "clause": "b9",
           "role": "教务"
+        },
+        {
+          "draft": "D2",
+          "clause": "b10",
+          "role": "编校"
         }
       ]
     },
@@ -216,7 +368,8 @@
       "status": 202,
       "expectedBody": {
         "draft": "D2",
-        "clause": "b5"
+        "clause": "b5",
+        "role": "教材编辑"
       },
       "receipt": {
         "number": "S-8",
@@ -225,6 +378,34 @@
         "state": "正式收件"
       },
       "drop": true
+    },
+    {
+      "path": "/office/signatures",
+      "method": "GET",
+      "status": 200,
+      "data": [
+        {
+          "opinion": "CM2",
+          "draft": "D2",
+          "clause": "b5",
+          "role": "教材编辑",
+          "seal": "ED-40"
+        },
+        {
+          "opinion": "CM3",
+          "draft": "D2",
+          "clause": "b8",
+          "role": "编校",
+          "seal": "CE-41"
+        },
+        {
+          "opinion": "CM3",
+          "draft": "D2",
+          "clause": "b10",
+          "role": "编校",
+          "seal": "CE-42"
+        }
+      ]
     }
   ],
   "forms": [
